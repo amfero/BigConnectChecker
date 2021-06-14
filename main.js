@@ -34,7 +34,7 @@ setInterval(function()
         host: ip,
         port: port
     }).then((state) => {
-        if(state.raw.numplayers == 0) console.log(`gamedig - connect ${ip}:${port}; password dragon1339`);
+        if(state.raw.numplayers == 0) console.log(`connect ${ip}:${port}; password dragon1339`);
     }).catch((error) => {});
     i++;
 }, 250);
