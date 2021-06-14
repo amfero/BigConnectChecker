@@ -1,4 +1,4 @@
-var request = require("request");
+var gamedig = require("gamedig");
 
 var servers = 
 [
@@ -29,11 +29,12 @@ setInterval(function()
     }
     var ip = servers[i].substring(0, servers[i].indexOf(':'));
     var port = servers[i].substring(servers[i].indexOf(':') + 1);
-    request(`https://query.li/api/csgo/${ip}/${port}`, function (error, response, body) 
-    {
-        var json = JSON.parse(body);
-        if(json.status.error == true) return;
-        else if (json.game.info.player_count == 0) console.log(`connect ${ip}:${port}; password dragon1339`)
-    });
+    gamedig.query({
+        type: 'csgo',
+        host: ip,
+        port: port
+    }).then((state) => {
+        if(state.raw.numplayers == 0) console.log(`gamedig - connect ${ip}:${port}; password dragon1339`);
+    }).catch((error) => {});
     i++;
 }, 250);
